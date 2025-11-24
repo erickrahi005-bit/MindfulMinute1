@@ -21,7 +21,7 @@ const questions = [
   },
   {
     id: 'proud',
-    question: 'One thing you're proud of this week?',
+    question: "One thing you're proud of this week?",
     options: ['School stuff', 'Something creative', 'Helping someone', 'Just getting through it'],
   },
 ];
@@ -116,4 +116,5 @@ const Reflection: React.FC<ReflectionProps> = ({ userData, onComplete, onBack })
 };
 
 export default Reflection;
+
 
