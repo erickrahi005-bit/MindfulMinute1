@@ -16,12 +16,12 @@ const questions = [
   },
   {
     id: 'smile',
-    question: 'Did anything online make you smile today?',
+    question: "Did anything online make you smile today?",
     options: ['Yes! 😊', 'Not really', "Haven't checked yet"],
   },
   {
     id: 'proud',
-    question: 'One thing you're proud of this week?',
+    question: "One thing you're proud of this week?",
     options: ['School stuff', 'Something creative', 'Helping someone', 'Just getting through it'],
   },
 ];
@@ -116,4 +116,5 @@ const Reflection: React.FC<ReflectionProps> = ({ userData, onComplete, onBack })
 };
 
 export default Reflection;
+
 
