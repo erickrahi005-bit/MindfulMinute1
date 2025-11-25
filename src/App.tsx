@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { UserData, View, MoodEntry } from './types';
-import { initializeData, saveStoredData } from './utils/storage';
+import { initializeData, saveStoredData, getStoredData } from './utils/storage';
+import Landing from './components/Landing';
 import Dashboard from './components/Dashboard';
 import Reflection from './components/Reflection';
 import Challenges from './components/Challenges';
@@ -12,16 +13,28 @@ import FactCheck from './components/FactCheck';
 import './App.css';
 
 function App() {
-  const [userData, setUserData] = useState<UserData>(initializeData());
+  const stored = getStoredData();
+  const [userData, setUserData] = useState<UserData | null>(stored ? initializeData() : null);
   const [currentView, setCurrentView] = useState<View>('home');
 
   useEffect(() => {
-    saveStoredData(userData);
+    if (userData) {
+      saveStoredData(userData);
+    }
   }, [userData]);
 
+  const handleNameSubmit = (name: string) => {
+    const newUserData = initializeData(name);
+    setUserData(newUserData);
+    saveStoredData(newUserData);
+  };
+
   const handleMoodUpdate = (mood: number, answers: string[]) => {
+    if (!userData) return;
+    
     const today = new Date().toDateString();
     const existingEntry = userData.moodEntries.find(e => e.date === today);
+    const lastCheckInDate = userData.lastActiveDate;
     
     const newEntry: MoodEntry = {
       date: today,
@@ -33,32 +46,57 @@ function App() {
       ? userData.moodEntries.map(e => e.date === today ? newEntry : e)
       : [...userData.moodEntries, newEntry];
 
+    // Only increment streak if this is the first check-in today
+    let newStreak = userData.streak;
+    if (lastCheckInDate !== today) {
+      // Check if yesterday had a check-in (for consecutive days)
+      const yesterday = new Date();
+      yesterday.setDate(yesterday.getDate() - 1);
+      const yesterdayStr = yesterday.toDateString();
+      const hadCheckInYesterday = userData.moodEntries.some(e => e.date === yesterdayStr);
+      
+      if (hadCheckInYesterday || userData.streak === 0) {
+        newStreak = userData.streak + 1;
+      } else {
+        // Reset streak if missed a day
+        newStreak = 1;
+      }
+    }
+
     setUserData({
       ...userData,
       moodEntries: updatedEntries,
-      streak: userData.streak + 1,
+      streak: newStreak,
+      lastActiveDate: today,
     });
 
     setCurrentView('home');
   };
 
   const handleCompleteChallenge = (id: string) => {
+    if (!userData) return;
+    
     setUserData({
       ...userData,
       challenges: userData.challenges.map(c =>
         c.id === id ? { ...c, completed: true } : c
       ),
       completedChallenges: [...userData.completedChallenges, id],
-      streak: userData.streak + 1,
     });
   };
 
   const handleUpdateLimit = (limit: number) => {
+    if (!userData) return;
+    
     setUserData({
       ...userData,
       dailyLimit: limit,
     });
   };
+
+  if (!userData) {
+    return <Landing onNameSubmit={handleNameSubmit} />;
+  }
 
   const renderView = () => {
     switch (currentView) {

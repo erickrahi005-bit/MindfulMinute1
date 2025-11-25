@@ -16,6 +16,16 @@ const affirmations = [
   "Nobody's glow is 24/7. Yours is still bright.",
 ];
 
+// Shuffle array function
+const shuffleArray = <T,>(array: T[]): T[] => {
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+};
+
 const getGreeting = (): string => {
   const hour = new Date().getHours();
   if (hour < 12) return 'Morning';
@@ -28,7 +38,11 @@ const Dashboard: React.FC<DashboardProps> = ({ userData, onViewChange, onMoodUpd
     e => e.date === new Date().toDateString()
   );
   const currentMood = todayMood?.mood || 70;
-  const affirmation = affirmations[Math.floor(Math.random() * affirmations.length)];
+  
+  // Shuffle affirmations and pick first one
+  const shuffledAffirmations = shuffleArray(affirmations);
+  const affirmation = shuffledAffirmations[0];
+  
   const scrollPercentage = (userData.currentScrollTime / userData.dailyLimit) * 100;
 
   return (

@@ -22,8 +22,8 @@ export const saveStoredData = (data: UserData): void => {
   }
 };
 
-export const getDefaultData = (): UserData => ({
-  name: 'Maya',
+export const getDefaultData = (name: string = 'Maya'): UserData => ({
+  name: name,
   streak: 0,
   dailyLimit: 90,
   currentScrollTime: 0,
@@ -55,20 +55,30 @@ export const getDefaultData = (): UserData => ({
   lastActiveDate: new Date().toDateString(),
 });
 
-export const initializeData = (): UserData => {
+export const initializeData = (name?: string): UserData => {
   const stored = getStoredData();
   const today = new Date().toDateString();
   
   if (!stored) {
-    return getDefaultData();
+    return getDefaultData(name);
   }
 
   // Reset daily data if it's a new day
   if (stored.lastActiveDate !== today) {
+    // Check if streak should continue (had check-in yesterday)
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+    const yesterdayStr = yesterday.toDateString();
+    const hadCheckInYesterday = stored.moodEntries.some(e => e.date === yesterdayStr);
+    
+    // Only maintain streak if they checked in yesterday, otherwise reset
+    const newStreak = hadCheckInYesterday ? stored.streak : 0;
+    
     return {
       ...stored,
       currentScrollTime: 0,
       lastActiveDate: today,
+      streak: newStreak,
       challenges: stored.challenges.map(c => ({
         ...c,
         completed: false,
