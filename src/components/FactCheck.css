@@ -1,0 +1,294 @@
+.fact-check {
+  padding: 24px;
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.fact-check-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.fact-check-content h2 {
+  font-size: 1.8rem;
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  color: var(--muted);
+  font-size: 1rem;
+  margin-bottom: 16px;
+}
+
+.section-description {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin-bottom: 16px;
+}
+
+/* Section Tabs */
+.section-tabs {
+  display: flex;
+  gap: 8px;
+  border-bottom: 2px solid var(--border);
+  padding-bottom: 8px;
+}
+
+.tab-btn {
+  padding: 10px 16px;
+  border-radius: 12px 12px 0 0;
+  font-size: 0.9rem;
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -10px;
+}
+
+.tab-btn:hover {
+  color: var(--fg);
+  background: rgba(159, 122, 234, 0.1);
+}
+
+.tab-btn.active {
+  color: var(--fg);
+  border-bottom-color: var(--lavender);
+  background: rgba(159, 122, 234, 0.1);
+}
+
+/* Myth Cards */
+.myths-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.myth-cards-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.myth-card {
+  background: var(--card);
+  border-radius: 16px;
+  padding: 20px;
+  border: 1px solid var(--border);
+  cursor: pointer;
+  min-height: 150px;
+  position: relative;
+  perspective: 1000px;
+  transition: transform 0.3s ease;
+}
+
+.myth-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(205, 216, 255, 0.3);
+}
+
+.myth-card .card-front,
+.myth-card .card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  transition: transform 0.6s;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  left: 0;
+  top: 0;
+  padding: 20px;
+}
+
+.myth-card .card-front {
+  transform: rotateY(0deg);
+}
+
+.myth-card .card-back {
+  transform: rotateY(180deg);
+}
+
+.myth-card.flipped .card-front {
+  transform: rotateY(-180deg);
+}
+
+.myth-card.flipped .card-back {
+  transform: rotateY(0deg);
+}
+
+.card-statement {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: var(--fg);
+  line-height: 1.4;
+}
+
+.flip-hint {
+  font-size: 0.85rem;
+  color: var(--muted);
+  font-style: italic;
+  margin-top: auto;
+}
+
+.card-type-badge {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+
+.myth-card.myth .card-type-badge {
+  background: var(--rose);
+  color: var(--fg);
+}
+
+.myth-card.reality .card-type-badge {
+  background: var(--mint);
+  color: var(--fg);
+}
+
+.card-explanation {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--fg);
+}
+
+/* Red Flags Section */
+.red-flags-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.red-flags-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.red-flag-item {
+  background: var(--card);
+  border-radius: 12px;
+  padding: 16px;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: transform 0.2s ease;
+}
+
+.red-flag-item:hover {
+  transform: translateX(4px);
+}
+
+.flag-icon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.red-flag-item p {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--fg);
+}
+
+.positive-reminder {
+  background: var(--gradient);
+  border-radius: 16px;
+  padding: 20px;
+  text-align: center;
+  margin-top: 8px;
+}
+
+.positive-reminder p {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--fg);
+  line-height: 1.5;
+}
+
+.positive-reminder strong {
+  font-weight: 600;
+}
+
+/* Help Section */
+.help-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.help-resources-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.help-resource-item {
+  background: var(--card);
+  border-radius: 12px;
+  padding: 16px;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.help-resource-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(205, 216, 255, 0.3);
+}
+
+.help-icon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.help-resource-item p {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--fg);
+}
+
+.back-btn {
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 8px 0;
+  align-self: flex-start;
+  transition: color 0.2s ease;
+}
+
+.back-btn:hover {
+  color: var(--fg);
+}
+
+@media (max-width: 768px) {
+  .myth-cards-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .section-tabs {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .tab-btn {
+    white-space: nowrap;
+  }
+}
+

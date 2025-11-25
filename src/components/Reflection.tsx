@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-import { UserData } from '../types';
 import './Reflection.css';
 
 interface ReflectionProps {
-  userData: UserData;
   onComplete: (mood: number, answers: string[]) => void;
   onBack: () => void;
 }
@@ -16,7 +14,7 @@ const questions = [
   },
   {
     id: 'smile',
-    question: "Did anything online make you smile today?",
+    question: 'Did anything online make you smile today?',
     options: ['Yes! 😊', 'Not really', "Haven't checked yet"],
   },
   {
@@ -26,7 +24,7 @@ const questions = [
   },
 ];
 
-const Reflection: React.FC<ReflectionProps> = ({ userData, onComplete, onBack }) => {
+const Reflection: React.FC<ReflectionProps> = ({ onComplete, onBack }) => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [mood, setMood] = useState(70);
@@ -116,5 +114,4 @@ const Reflection: React.FC<ReflectionProps> = ({ userData, onComplete, onBack })
 };
 
 export default Reflection;
-
 

@@ -23,5 +23,5 @@ export interface UserData {
   lastActiveDate: string;
 }
 
-export type View = 'home' | 'reflection' | 'challenges' | 'games' | 'insights' | 'settings';
+export type View = 'home' | 'reflection' | 'challenges' | 'games' | 'insights' | 'settings' | 'healthy-habits' | 'fact-check';
 

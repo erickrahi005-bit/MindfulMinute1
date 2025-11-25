@@ -7,6 +7,8 @@ import Challenges from './components/Challenges';
 import Games from './components/Games';
 import Insights from './components/Insights';
 import Settings from './components/Settings';
+import HealthyHabits from './components/HealthyHabits';
+import FactCheck from './components/FactCheck';
 import './App.css';
 
 function App() {
@@ -71,7 +73,6 @@ function App() {
       case 'reflection':
         return (
           <Reflection
-            userData={userData}
             onComplete={handleMoodUpdate}
             onBack={() => setCurrentView('home')}
           />
@@ -101,6 +102,18 @@ function App() {
             onBack={() => setCurrentView('home')}
           />
         );
+      case 'healthy-habits':
+        return (
+          <HealthyHabits
+            onBack={() => setCurrentView('home')}
+          />
+        );
+      case 'fact-check':
+        return (
+          <FactCheck
+            onBack={() => setCurrentView('home')}
+          />
+        );
       default:
         return null;
     }
@@ -126,6 +139,18 @@ function App() {
           onClick={() => setCurrentView('games')}
         >
           Games
+        </button>
+        <button
+          className={`nav-btn ${currentView === 'healthy-habits' ? 'active' : ''}`}
+          onClick={() => setCurrentView('healthy-habits')}
+        >
+          Healthy Habits
+        </button>
+        <button
+          className={`nav-btn ${currentView === 'fact-check' ? 'active' : ''}`}
+          onClick={() => setCurrentView('fact-check')}
+        >
+          Fact-Check
         </button>
         <button
           className={`nav-btn ${currentView === 'settings' ? 'active' : ''}`}
